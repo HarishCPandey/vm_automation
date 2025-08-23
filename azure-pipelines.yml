@@ -14,5 +14,36 @@ jobs:
 - job: TerraformPlan
   displayName: Terraform Plan
   pool: dev-agent-pool
+  dependsOn: TerraformInit
   steps:
-  
+  - task: TerraformTask@5
+    inputs:
+      provider: 'azurerm'
+      command: 'init'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/parent'
+      backendServiceArm: 'New Service Connection latest'
+      backendAzureRmResourceGroupName: 'automate-todoapp-using-pipeline'
+      backendAzureRmStorageAccountName: 'mystg5577'
+      backendAzureRmContainerName: 'myxontainer5577'
+      backendAzureRmKey: 'mykey5577'
+- job: ManualValidation
+  displayName: Manual Validation wala stey
+  pool: server
+  dependsOn: TerraformPlan   
+  steps:
+  - task: ManualValidation@1
+    inputs:
+      notifyUsers: 'harishpandey57@outlook.com'
+      approvers: 'harishpandey57@outlook.com'
+      instructions: 'Bhai isko manually validate kr de'
+- job: TerraformApply
+  displayName: Terraform Apply
+  pool: dev-agent-pool
+  dependsOn: ManualValidation
+  steps:
+  - task: TerraformTask@5
+    inputs:
+      provider: 'azurerm'
+      command: 'apply'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/parent'
+      environmentServiceNameAzureRM: 'New Service Connection latest'
