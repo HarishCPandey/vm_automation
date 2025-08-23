@@ -1,0 +1,18 @@
+trigger: 
+ branches:
+   include:
+    - main 
+    - feature/*
+jobs:
+- job: TerraformInit
+  displayName: Terraform INIT
+  pool: dev-agent-pool
+  steps:
+  - task: TerraformInstaller@1
+    inputs:
+      terraformVersion: 'latest'
+- job: TerraformPlan
+  displayName: Terraform Plan
+  pool: dev-agent-pool
+  steps:
+  
