@@ -11,6 +11,14 @@ jobs:
   - task: TerraformInstaller@1
     inputs:
       terraformVersion: 'latest'
+
+- job: TFSECScan
+  displayName: Scan code using Tfsec
+  pool: dev-agent-pool
+  dependsOn: TerraformInit
+  steps:
+  
+
 - job: TerraformPlan
   displayName: Terraform Plan
   pool: dev-agent-pool
