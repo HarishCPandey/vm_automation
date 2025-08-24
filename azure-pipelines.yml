@@ -30,7 +30,7 @@ jobs:
   - task: TerraformTask@5
     inputs:
       provider: 'azurerm'
-      command: 'init'
+      command: 'plan'
       workingDirectory: '$(System.DefaultWorkingDirectory)/parent'
       backendServiceArm: 'New Service Connection latest'
       backendAzureRmResourceGroupName: 'automate-todoapp-using-pipeline'
