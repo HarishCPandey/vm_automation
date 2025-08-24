@@ -21,6 +21,7 @@ jobs:
       terraformVersion: 'latest'
 
 - job: TFSECScan
+  condition: eq(${{parameters.ScanningTool}}, true)
   displayName: Scan code using Tfsec
   pool: dev-agent-pool
   dependsOn: TerraformInit
