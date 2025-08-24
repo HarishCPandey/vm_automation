@@ -3,6 +3,14 @@ trigger: none
    #include:
     #- main 
     #- feature/*
+parameters:
+- name: ScanningTool
+  displayName: Scanning tool
+  type: string
+  values:
+  - true
+  - false
+      
 jobs:
 - job: TerraformInit
   displayName: Terraform INIT
